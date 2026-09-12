@@ -509,7 +509,7 @@ export default function ContactsPage({
               value: String(item.id),
               label: item.name,
             }))}
-            placeholder="همه دسته ها"
+            placeholder="همه زیر گروه ها"
             className="w-auto"
           />
 

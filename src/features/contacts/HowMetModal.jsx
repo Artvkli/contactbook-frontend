@@ -82,7 +82,7 @@ export function HowMetModal({ open, onClose, onHowMetChange }) {
     const item = items.find((item) => item.id === id);
 
     const ok = window.confirm(
-      `آیا از حذف «${item?.name || "این مورد"}» مطمئن هستید؟`,
+      `آیا از  حذف «${item?.name || "این مورد"}» مطمئن هستید؟`,
     );
 
     if (!ok) return;

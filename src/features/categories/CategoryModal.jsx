@@ -66,8 +66,8 @@ export function CategoryModal({
       setError(
         submitError?.message ||
           (editingId
-            ? "ویرایش دسته با خطا مواجه شد."
-            : "ثبت دسته با خطا مواجه شد."),
+            ? "ویرایش گروه اصلی با خطا مواجه شد."
+            : "ثبت گروه اصلی با خطا مواجه شد."),
       );
     } finally {
       setSaving(false);
@@ -87,29 +87,33 @@ export function CategoryModal({
   };
 
   const handleDelete = async (category) => {
-    const hasChildren = categories.some((item) => item.parent === category.id);
+    const children = categories.filter((item) => item.parent === category.id);
+    const hasChildren = children.length > 0;
 
-    if (hasChildren) {
-      alert(
-        "این دسته دارای گروه اصلی است و تا زمانی که گروه اصلی‌های مربوط به آن حذف نشوند، امکان حذف دسته وجود ندارد.",
-      );
-      return;
-    }
+    const confirmMessage = hasChildren
+      ? `گروه اصلی «${category.name}» دارای ${children.length} زیر گروه است. با حذف آن، تمام زیر گروه‌های آن نیز حذف خواهند شد. آیا مایل به ادامه هستید؟`
+      : `آیا از حذف گروه اصلی «${category.name}» مطمئن هستید؟`;
 
-    const ok = window.confirm(`آیا از حذف «${category.name}» مطمئن هستید؟`);
+    const ok = window.confirm(confirmMessage);
 
     if (!ok) return;
 
     try {
+      // ابتدا تمام زیر گروه‌های مربوط به این گروه اصلی حذف می‌شوند
+      for (const child of children) {
+        await onDelete(child.id);
+      }
+
+      // سپس خود گروه اصلی حذف می‌شود
       await onDelete(category.id);
 
-      if (editingId === category.id) {
+      if (editingId === category.id || children.some((child) => child.id === editingId)) {
         handleCancelEdit();
       }
     } catch (error) {
       console.error("DELETE CATEGORY ERROR:", error);
 
-      alert(error?.message || "حذف دسته با خطا مواجه شد.");
+      alert(error?.message || "حذف گروه اصلی با خطا مواجه شد.");
     }
   };
 
@@ -236,7 +240,7 @@ export function CategoryModal({
             <div className="overflow-hidden rounded-xl border border-[#e9e5df] max-h-62.5 space-y-2 overflow-y-auto pl-1">
               {rootCategories.length === 0 ? (
                 <div className="py-10 text-center text-[10px] text-[#9d968e]">
-                  هنوز دسته‌ای ثبت نشده است.
+                  هنوز گروه اصلی‌ای ثبت نشده است.
                 </div>
               ) : (
                 <div className="divide-y divide-[#f1eee9]">
@@ -281,7 +285,9 @@ export function CategoryModal({
                             onClick={() => handleDelete(category)}
                             className="flex size-8 items-center justify-center rounded-lg text-[#a19a91] transition hover:bg-[#fbefed] hover:text-[#b45a52]"
                             title={
-                              hasChildren ? "این دسته دارای گروه اصلی است" : "حذف"
+                              hasChildren
+                                ? "این گروه اصلی دارای زیر گروه است"
+                                : "حذف"
                             }
                           >
                             <Trash2 className="size-3.5" />

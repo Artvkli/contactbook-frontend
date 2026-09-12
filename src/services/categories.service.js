@@ -17,7 +17,7 @@ export async function getCategories() {
   }
 
   if (!response.ok) {
-    throw new Error(data?.detail || "دریافت دسته‌ها با خطا مواجه شد.");
+    throw new Error(data?.detail || "دریافت زیر گروه با خطا مواجه شد.");
   }
 
   return data.results || [];
@@ -27,7 +27,7 @@ export async function createCategory(name) {
   const normalizedName = name.trim();
 
   if (!normalizedName) {
-    throw new Error("نام دسته الزامی است.");
+    throw new Error("نام زیر گروه الزامی است.");
   }
 
   const response = await fetch(`${API_URL}/categories/`, {
@@ -49,7 +49,7 @@ export async function createCategory(name) {
   }
 
   if (!response.ok) {
-    let message = "ثبت دسته با خطا مواجه شد.";
+    let message = "ثبت زیر گروه با خطا مواجه شد.";
 
     if (data?.detail) {
       message = data.detail;
@@ -67,7 +67,7 @@ export async function updateCategory(id, name) {
   const normalizedName = name.trim();
 
   if (!normalizedName) {
-    throw new Error("نام دسته الزامی است.");
+    throw new Error("نام زیر گروه الزامی است.");
   }
 
   const response = await fetch(`${API_URL}/categories/${id}/`, {
@@ -89,7 +89,7 @@ export async function updateCategory(id, name) {
   }
 
   if (!response.ok) {
-    let message = "ویرایش دسته با خطا مواجه شد.";
+    let message = "ویرایش زیر گروه با خطا مواجه شد.";
 
     if (data?.detail) {
       message = data.detail;
@@ -112,7 +112,7 @@ export async function deleteCategory(id) {
     const data = await response.json().catch(() => null);
 
     throw new Error(
-      data?.detail || data?.message || "حذف دسته با خطا مواجه شد.",
+      data?.detail || data?.message || "حذف زیر گروه با خطا مواجه شد.",
     );
   }
 }

@@ -43,12 +43,12 @@ export function RoleModal({
     const normalizedName = name.trim();
 
     if (!normalizedName) {
-      setError("نام دسته را وارد کنید.");
+      setError("نام زیر گروه را وارد کنید.");
       return;
     }
 
     if (!parentId) {
-      setError("دسته را انتخاب کنید.");
+      setError("ابتدا گروه اصلی را انتخاب کنید.");
       return;
     }
 
@@ -59,7 +59,7 @@ export function RoleModal({
     );
 
     if (duplicate) {
-      setError("این گروه اصلی قبلاً ثبت شده است.");
+      setError("این زیر گروه قبلاً ثبت شده است.");
       return;
     }
 
@@ -89,7 +89,7 @@ export function RoleModal({
   };
 
   const handleDelete = async (role) => {
-    const ok = window.confirm(`آیا از حذف گروه اصلی «${role.name}» مطمئن هستید؟`);
+    const ok = window.confirm(`آیا از حذف زیر گروه  «${role.name}» مطمئن هستید؟`);
 
     if (!ok) return;
 
@@ -121,7 +121,7 @@ export function RoleModal({
             </div>
 
             <h2 className="text-[14px] font-extrabold text-[#3f3932]">
-              مدیریت دسته
+              مدیریت زیر گروه ها
             </h2>
           </div>
 
@@ -139,7 +139,7 @@ export function RoleModal({
         <form onSubmit={handleSubmit} className="px-5 py-5 sm:px-6 sm:py-6">
           <label className="mb-4 block">
             <span className="mb-2 block text-[11px] font-semibold text-[#4d463e]">
-              انتخاب دسته <b className="text-[#d65d55]">*</b>
+              انتخاب گروه اصلی <b className="text-[#d65d55]">*</b>
             </span>
 
             <select
@@ -165,7 +165,7 @@ export function RoleModal({
 
           <label className="block">
             <span className="mb-2 block text-[11px] font-semibold text-[#4d463e]">
-              نام دسته <b className="text-[#d65d55]">*</b>
+              نام زیر گروه <b className="text-[#d65d55]">*</b>
             </span>
 
             <input
@@ -193,13 +193,13 @@ export function RoleModal({
 
           <div className="mt-5 rounded-xl border border-[#eee8de] bg-[#fcfaf7] p-4">
             <div className="mb-3 text-[10px] font-bold text-[#756d63]">
-              دسته های موجود
+              زیر گروه های موجود
             </div>
 
             <div className="max-h-62.5 space-y-2 overflow-y-auto pl-1">
               {roles.length === 0 ? (
                 <div className="py-4 text-center text-[10px] text-[#9d968e]">
-                  هنوز دسته ای ثبت نشده است.
+                  هنوز زیر گروه ای ثبت نشده است.
                 </div>
               ) : (
                 roles.map((role) => (
@@ -279,7 +279,7 @@ export function RoleModal({
                 ? "در حال ذخیره..."
                 : editingId
                   ? "ذخیره تغییرات"
-                  : "افزودن دسته"}
+                  : "افزودن زیر گروه"}
             </button>
           </div>
         </form>

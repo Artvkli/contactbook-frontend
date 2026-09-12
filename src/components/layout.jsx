@@ -93,7 +93,7 @@ export function MainSidebar({
     { icon: UserCog, label: "تنظیمات نام کاربری و رمز ورود ( به زودی )" },
     { icon: Sparkles, label: "نحوه آشنایی", accent: true },
     { icon: Users, label: "افزودن گروه اصلی", accent: true },
-    { icon: FolderPlus, label: "افزودن دسته", accent: true },
+    { icon: FolderPlus, label: "افزودن زیر گروه", accent: true },
   ];
 
   return (
@@ -109,7 +109,7 @@ export function MainSidebar({
             <button
               key={label}
               onClick={
-                label === "افزودن دسته"
+                label === "افزودن زیر گروه"
                   ? onAddRole
                   : label === "افزودن گروه اصلی"
                     ? onAddCategory
@@ -324,7 +324,7 @@ function MobileMenuItems({
     [UserCog, "تنظیمات نام کاربری و رمز ورود ( به زودی )"],
     [Sparkles, "نحوه آشنایی"],
     [Users, "افزودن گروه اصلی"],
-    [FolderPlus, "افزودن دسته"],
+    [FolderPlus, "افزودن زیر گروه"],
   ];
 
   return (
@@ -333,7 +333,7 @@ function MobileMenuItems({
         <button
           key={label}
           onClick={
-            label === "افزودن دسته"
+            label === "افزودن زیر گروه"
               ? onAddRole
               : label === "افزودن گروه اصلی"
                 ? onAddCategory
@@ -473,7 +473,7 @@ function MobileContractorCategories({
                     })
                   ) : (
                     <div className="px-3 py-2.5 text-[10px] text-[#aaa39a]">
-                      گروه اصلیی برای این دسته ثبت نشده
+                      گروه اصلیی برای این زیر گروه ثبت نشده
                     </div>
                   )}
                 </div>

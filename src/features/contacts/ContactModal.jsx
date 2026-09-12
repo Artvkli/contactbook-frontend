@@ -133,7 +133,7 @@ export function ContactModal({
     }
 
     if (!form.categoryId) {
-      alert("لطفاً دسته‌بندی مخاطب را انتخاب کنید.");
+      alert("لطفاً زیرگروه مخاطب را انتخاب کنید.");
       return false;
     }
 
@@ -257,7 +257,7 @@ export function ContactModal({
                     ? roleOptions.length > 0
                       ? "انتخاب زیر گروه"
                       : "ابتدا گروه اصلی رو انتخاب کنید"
-                    : "ابتدا دسته را انتخاب کنید"
+                    : "ابتدا زیر گروه را انتخاب کنید"
                 }
                 disabled={!form.categoryId || roleOptions.length === 0}
               />

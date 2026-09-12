@@ -51,7 +51,7 @@ export default function App() {
 
         setCategories(data);
       } catch (error) {
-        setCategoryError(error?.message || "دریافت دسته‌ها با خطا مواجه شد.");
+        setCategoryError(error?.message || "دریافت زیر گروها با خطا مواجه شد.");
       } finally {
         setLoadingCategories(false);
       }
