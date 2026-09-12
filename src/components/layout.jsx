@@ -151,96 +151,95 @@ export function ContractorSidebar({
   };
 
   return (
-    // <aside className="hidden w-58.75 shrink-0 border-r border-[#ebe7e0] bg-white xl:block">
-    //   <div className="sticky top-0 px-5 py-5">
-    //     <div className="mb-4 flex items-center gap-2 text-sm font-bold text-[#4a433b]">
-    //       <Users className="size-4.25 text-[#b48634]" />
-    //       گروه بندی
-    //     </div>
+    <aside className="hidden w-58.75 shrink-0 border-r border-[#ebe7e0] bg-white xl:block">
+      <div className="sticky top-0 px-5 py-5">
+        <div className="mb-4 flex items-center gap-2 text-sm font-bold text-[#4a433b]">
+          <Users className="size-4.25 text-[#b48634]" />
+          گروه بندی
+        </div>
 
-    //     <div className="space-y-1">
-    //       {categories.map((category) => {
-    //         const categoryRoles = allCategories.filter(
-    //           (item) =>
-    //             item.is_role === true &&
-    //             String(item.parent) === String(category.id),
-    //         );
+        <div className="space-y-1">
+          {categories.map((category) => {
+            const categoryRoles = allCategories.filter(
+              (item) =>
+                item.is_role === true &&
+                String(item.parent) === String(category.id),
+            );
 
-    //         const isOpen = String(openCategory) === String(category.id);
+            const isOpen = String(openCategory) === String(category.id);
 
-    //         return (
-    //           <div key={category.id}>
-    //             <button
-    //               type="button"
-    //               onClick={() => toggleCategory(category.id)}
-    //               className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-xs transition hover:bg-[#faf8f4]"
-    //             >
-    //               <span className="text-[#5f574f]">{category.name}</span>
+            return (
+              <div key={category.id}>
+                <button
+                  type="button"
+                  onClick={() => toggleCategory(category.id)}
+                  className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-xs transition hover:bg-[#faf8f4]"
+                >
+                  <span className="text-[#5f574f]">{category.name}</span>
 
-    //               <div className="flex items-center gap-2">
-    //                 <span className="min-w-5 rounded-full bg-[#f3eee6] px-1.5 py-0.5 text-center text-[9px] font-semibold text-[#9a7946]">
-    //                   {
-    //                     contacts.filter(
-    //                       (contact) =>
-    //                         String(contact.category) === String(category.id),
-    //                     ).length
-    //                   }
-    //                 </span>
+                  <div className="flex items-center gap-2">
+                    <span className="min-w-5 rounded-full bg-[#f3eee6] px-1.5 py-0.5 text-center text-[9px] font-semibold text-[#9a7946]">
+                      {
+                        contacts.filter(
+                          (contact) =>
+                            String(contact.category) === String(category.id),
+                        ).length
+                      }
+                    </span>
 
-    //                 <span
-    //                   className={`text-[#aaa39a] transition-transform duration-200 ${
-    //                     isOpen ? "rotate-180" : ""
-    //                   }`}
-    //                 >
-    //                   <ChevronDown className="h-4 w-4" />
-    //                 </span>
-    //               </div>
-    //             </button>
+                    <span
+                      className={`text-[#aaa39a] transition-transform duration-200 ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                    >
+                      <ChevronDown className="h-4 w-4" />
+                    </span>
+                  </div>
+                </button>
 
-    //             <div
-    //               className={`grid transition-all duration-200 ease-in-out ${
-    //                 isOpen
-    //                   ? "grid-rows-[1fr] opacity-100"
-    //                   : "grid-rows-[0fr] opacity-0"
-    //               }`}
-    //             >
-    //               <div className="overflow-hidden">
-    //                 <div className="mr-3 mt-1 space-y-1 border-r border-[#eee7df] pr-3">
-    //                   {categoryRoles.length > 0 ? (
-    //                     categoryRoles.map((role) => {
-    //                       const roleContactsCount = contacts.filter(
-    //                         (contact) =>
-    //                           String(contact.role) === String(role.id),
-    //                       ).length;
+                <div
+                  className={`grid transition-all duration-200 ease-in-out ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="mr-3 mt-1 space-y-1 border-r border-[#eee7df] pr-3">
+                      {categoryRoles.length > 0 ? (
+                        categoryRoles.map((role) => {
+                          const roleContactsCount = contacts.filter(
+                            (contact) =>
+                              String(contact.role) === String(role.id),
+                          ).length;
 
-    //                       return (
-    //                         <div
-    //                           key={role.id}
-    //                           className="flex items-center justify-between rounded-lg px-3 py-2.5 text-xs text-[#716a61] transition hover:bg-[#faf8f4]"
-    //                         >
-    //                           <span>{role.name}</span>
+                          return (
+                            <div
+                              key={role.id}
+                              className="flex items-center justify-between rounded-lg px-3 py-2.5 text-xs text-[#716a61] transition hover:bg-[#faf8f4]"
+                            >
+                              <span>{role.name}</span>
 
-    //                           <span className="min-w-5 rounded-full bg-[#f3eee6] px-1.5 py-0.5 text-center text-[9px] font-semibold text-[#9a7946]">
-    //                             {roleContactsCount}
-    //                           </span>
-    //                         </div>
-    //                       );
-    //                     })
-    //                   ) : (
-    //                     <div className="px-3 py-2.5 text-[10px] text-[#aaa39a]">
-    //                       گروه اصلیی برای این دسته ثبت نشده
-    //                     </div>
-    //                   )}
-    //                 </div>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         );
-    //       })}
-    //     </div>
-    //   </div>
-    // </aside>
-    <></>
+                              <span className="min-w-5 rounded-full bg-[#f3eee6] px-1.5 py-0.5 text-center text-[9px] font-semibold text-[#9a7946]">
+                                {roleContactsCount}
+                              </span>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <div className="px-3 py-2.5 text-[10px] text-[#aaa39a]">
+                          گروه اصلی‌ای برای این زیر گروه ثبت نشده
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </aside>
   );
 }
 
@@ -473,7 +472,7 @@ function MobileContractorCategories({
                     })
                   ) : (
                     <div className="px-3 py-2.5 text-[10px] text-[#aaa39a]">
-                      گروه اصلیی برای این زیر گروه ثبت نشده
+                      گروه اصلی‌ای برای این زیر گروه ثبت نشده
                     </div>
                   )}
                 </div>
