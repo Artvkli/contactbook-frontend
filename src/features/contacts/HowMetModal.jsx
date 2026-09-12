@@ -54,17 +54,22 @@ export function HowMetModal({ open, onClose, onHowMetChange }) {
 
     try {
       if (editingId) {
-        await updateHowMet(editingId, value);
+        const updatedHowMet = await updateHowMet(editingId, value);
 
-        window.location.reload();
-        return;
+        await loadHowMet();
+
+        onHowMetChange?.(updatedHowMet);
+
+        resetForm();
+      } else {
+        const newHowMet = await createHowMet(value);
+
+        await loadHowMet();
+
+        onHowMetChange?.(newHowMet);
+
+        resetForm();
       }
-
-      await createHowMet(value);
-
-      await loadHowMet();
-
-      resetForm();
     } catch (error) {
       console.error("HOW MET SAVE ERROR:", error);
       alert(error.message || "ذخیره نحوه آشنایی با خطا مواجه شد.");
@@ -72,7 +77,6 @@ export function HowMetModal({ open, onClose, onHowMetChange }) {
       setSaving(false);
     }
   };
-
   const handleEdit = (item) => {
     setEditingId(item.id);
     setName(item.name);
@@ -91,6 +95,8 @@ export function HowMetModal({ open, onClose, onHowMetChange }) {
       await deleteHowMet(id);
 
       setItems((current) => current.filter((item) => item.id !== id));
+
+      onHowMetChange?.();
 
       if (editingId === id) {
         resetForm();
