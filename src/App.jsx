@@ -4,6 +4,7 @@ import {
   MainSidebar,
   ContractorSidebar,
   MobileDrawer,
+  MobileGroupsDrawer,
 } from "./components/layout";
 import ContactsPage from "./features/contacts/ContactsPage";
 import { RoleModal } from "./features/roles/RoleModal";
@@ -21,6 +22,11 @@ import {
 import { HowMetModal } from "./features/contacts/HowMetModal";
 import { getHowMet } from "./services/howMet.service";
 
+
+
+
+
+
 export default function App() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [createTrigger, setCreateTrigger] = useState(0);
@@ -34,6 +40,8 @@ export default function App() {
   const [howMetOptions, setHowMetOptions] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [contactsRefreshKey, setContactsRefreshKey] = useState(0);
+  const [groupsOpen, setGroupsOpen] = useState(false);
+
 
   const roles = categories.filter((category) => category.parent !== null);
 
@@ -144,6 +152,7 @@ export default function App() {
       <Header
         onAdd={() => setCreateTrigger((value) => value + 1)}
         onMenu={() => setMobileMenuOpen(true)}
+        onToggleGroups={() => setGroupsOpen((value) => !value)}
       />
       <div className="flex min-h-[calc(100vh-72px)]">
         <MainSidebar
@@ -167,6 +176,7 @@ export default function App() {
           contacts={contacts}
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
+          open={groupsOpen}
         />
         {/* <LeftRail /> */}
       </div>
@@ -205,6 +215,16 @@ export default function App() {
         onClose={() => setHowMetModalOpen(false)}
         onHowMetChange={loadHowMetOptions}
       />
+
+      <MobileGroupsDrawer
+        open={groupsOpen}
+        onClose={() => setGroupsOpen(false)}
+        categories={categories.filter((category) => category.parent === null)}
+        allCategories={categories}
+        contacts={contacts}
+      />
     </div>
   );
 }
+
+

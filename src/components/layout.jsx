@@ -6,6 +6,7 @@ import {
   FolderPlus,
   Grid2X2,
   LayoutDashboard,
+  Layers,
   Menu,
   Plus,
   Settings,
@@ -18,7 +19,7 @@ import {
 import { categories } from "../data/contacts";
 import { IconButton } from "./ui";
 
-export function Header({ onAdd, onMenu }) {
+export function Header({ onAdd, onMenu, onToggleGroups }) {
   return (
     <header className="flex min-h-18 flex-wrap items-center gap-3 border-b border-[#ebe7e0] bg-white px-4 py-3 sm:flex-nowrap sm:gap-5 sm:px-7">
       {/* <div className="order-5 flex w-full max-w-none basis-full items-center sm:order-0 sm:mx-auto sm:max-w-135 sm:basis-auto">
@@ -33,13 +34,24 @@ export function Header({ onAdd, onMenu }) {
         </div>
       </div> */}
 
-      <button
-        onClick={onMenu}
-        className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-[#e7e2da] text-[#756e65] hover:bg-[#faf8f4] lg:hidden"
-        aria-label="باز کردن منو"
-      >
-        <Menu className="size-4.75" />
-      </button>
+      <div className="flex shrink-0 items-center gap-2 lg:hidden">
+        <button
+          onClick={onMenu}
+          className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-[#e7e2da] text-[#756e65] hover:bg-[#faf8f4]"
+          aria-label="باز کردن منو"
+        >
+          <Menu className="size-4.75" />
+        </button>
+
+        <button
+          onClick={onToggleGroups}
+          className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-[#e7e2da] text-[#756e65] hover:bg-[#faf8f4]"
+          aria-label="باز کردن گروه بندی"
+          title="گروه بندی"
+        >
+          <Layers className="size-4.5" />
+        </button>
+      </div>
 
       <div className="flex items-center justify-between w-full">
         <div className="flex shrink-0 items-center gap-3">
@@ -58,6 +70,15 @@ export function Header({ onAdd, onMenu }) {
 
         <div className="flex items-center justify-center gap-5">
           <div className="flex shrink-0 items-center gap-1">
+            <button
+              type="button"
+              onClick={onToggleGroups}
+              className="flex h-10 items-center gap-2 rounded-lg px-3 text-xs font-semibold text-[#756e65] transition hover:bg-[#faf8f4]"
+              title="گروه بندی"
+            >
+              <Layers className="size-4.5" />
+              <span className="hidden sm:inline">گروه بندی</span>
+            </button>
             <IconButton title="اعلان‌ها">
               <Bell className="size-4.5" />
             </IconButton>
@@ -117,13 +138,12 @@ export function MainSidebar({
                       ? onHowMet
                       : undefined
               }
-              className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-xs transition ${
-                active
+              className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-xs transition ${active
                   ? "bg-[#f8f1e5] font-semibold text-[#76531d]"
                   : accent
                     ? "text-[#80602a] hover:bg-[#faf8f4]"
                     : "text-[#716a61] hover:bg-[#faf8f4]"
-              }`}
+                }`}
             >
               <Icon className="size-4 shrink-0" />
               <span className="text-right leading-5">{label}</span>
@@ -141,6 +161,7 @@ export function ContractorSidebar({
   contacts = [],
   activeCategory,
   onCategoryChange,
+  open = true,
 }) {
   const [openCategory, setOpenCategory] = React.useState(null);
 
@@ -149,6 +170,8 @@ export function ContractorSidebar({
       String(current) === String(categoryId) ? null : categoryId,
     );
   };
+
+  if (!open) return null;
 
   return (
     <aside className="hidden w-58.75 shrink-0 border-r border-[#ebe7e0] bg-white xl:block">
@@ -188,9 +211,8 @@ export function ContractorSidebar({
                     </span>
 
                     <span
-                      className={`text-[#aaa39a] transition-transform duration-200 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
+                      className={`text-[#aaa39a] transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                        }`}
                     >
                       <ChevronDown className="h-4 w-4" />
                     </span>
@@ -198,11 +220,10 @@ export function ContractorSidebar({
                 </button>
 
                 <div
-                  className={`grid transition-all duration-200 ease-in-out ${
-                    isOpen
+                  className={`grid transition-all duration-200 ease-in-out ${isOpen
                       ? "grid-rows-[1fr] opacity-100"
                       : "grid-rows-[0fr] opacity-0"
-                  }`}
+                    }`}
                 >
                   <div className="overflow-hidden">
                     <div className="mr-3 mt-1 space-y-1 border-r border-[#eee7df] pr-3">
@@ -294,12 +315,56 @@ export function MobileDrawer({
           />
         </div>
 
-        <div className="px-5 py-5">
+        {/* <div className="px-5 py-5">
           <div className="mb-3 flex items-center gap-2 text-sm font-bold text-[#4a433b]">
             <Users className="size-4.25 text-[#b48634]" />
             گروه بندی
           </div>
 
+          <MobileContractorCategories
+            categories={categories}
+            allCategories={allCategories}
+            contacts={contacts}
+          />
+        </div> */}
+      </aside>
+    </div>
+  );
+}
+
+export function MobileGroupsDrawer({
+  open,
+  onClose,
+  categories = [],
+  allCategories = [],
+  contacts = [],
+}) {
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 lg:hidden">
+      <button
+        className="absolute inset-0 bg-[#211c16]/35 backdrop-blur-[2px]"
+        onClick={onClose}
+        aria-label="بستن گروه بندی"
+      />
+      <aside className="absolute right-0 top-0 flex h-full w-[min(88vw,330px)] flex-col overflow-y-auto bg-white shadow-[-12px_0_40px_rgba(43,33,22,0.14)]">
+        <div className="flex h-18 shrink-0 items-center justify-between border-b border-[#eeeae4] px-5">
+          <div className="flex items-center gap-2 text-sm font-extrabold text-[#3f3932]">
+            <div className="flex size-8 items-center justify-center rounded-lg bg-[#b48634] text-white">
+              <Layers className="size-4" />
+            </div>
+            گروه بندی
+          </div>
+          <button
+            onClick={onClose}
+            className="size-9 rounded-lg text-[#8d867e] hover:bg-[#f5f2ed]"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className="px-5 py-5">
           <MobileContractorCategories
             categories={categories}
             allCategories={allCategories}
@@ -340,11 +405,10 @@ function MobileMenuItems({
                   ? onHowMet
                   : undefined
           }
-          className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-xs ${
-            index === 0
+          className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-xs ${index === 0
               ? "bg-[#f8f1e5] font-semibold text-[#76531d]"
               : "text-[#716a61] hover:bg-[#faf8f4]"
-          }`}
+            }`}
         >
           <Icon className="size-4 shrink-0" />
           <span className="text-right leading-5">{label}</span>
@@ -372,11 +436,10 @@ export function LeftRail() {
           <button
             key={label}
             title={label}
-            className={`flex size-11 flex-col items-center justify-center rounded-xl ${
-              index === 1
+            className={`flex size-11 flex-col items-center justify-center rounded-xl ${index === 1
                 ? "bg-[#f3eadb] text-[#9a702b]"
                 : "text-[#a09a92] hover:bg-[#f4f1eb]"
-            }`}
+              }`}
           >
             <Icon className="size-4.25" />
           </button>
@@ -433,9 +496,8 @@ function MobileContractorCategories({
                 </span>
 
                 <span
-                  className={`text-[#aaa39a] transition-transform duration-200 ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
+                  className={`text-[#aaa39a] transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+                    }`}
                 >
                   <ChevronDown className="h-4 w-4" />
                 </span>
@@ -443,11 +505,10 @@ function MobileContractorCategories({
             </button>
 
             <div
-              className={`grid transition-all duration-200 ease-in-out ${
-                isOpen
+              className={`grid transition-all duration-200 ease-in-out ${isOpen
                   ? "grid-rows-[1fr] opacity-100"
                   : "grid-rows-[0fr] opacity-0"
-              }`}
+                }`}
             >
               <div className="overflow-hidden">
                 <div className="mr-3 mt-1 space-y-1 border-r border-[#eee7df] pr-3">
