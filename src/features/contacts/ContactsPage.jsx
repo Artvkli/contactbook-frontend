@@ -468,7 +468,7 @@ export default function ContactsPage({
         <div className="mb-4 flex flex-wrap items-center gap-2">
           <SearchInput value={search} onChange={setSearch} />
 
-          <Select
+          {/* <Select
             value={sort}
             onChange={setSort}
             options={[
@@ -487,7 +487,7 @@ export default function ContactsPage({
             ]}
             placeholder="مرتب‌سازی"
             className="w-33.75"
-          />
+          /> */}
 
           <Select
             value={category}
