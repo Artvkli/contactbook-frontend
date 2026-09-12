@@ -128,7 +128,7 @@ export function ContactModal({
     }
 
     if (!form.role) {
-      alert("لطفاً نقش مخاطب را انتخاب کنید.");
+      alert("لطفاً گروه اصلی مخاطب را انتخاب کنید.");
       return false;
     }
 
@@ -247,7 +247,7 @@ export function ContactModal({
               </div>
             </Field>
 
-            <Field label="دسته بندی" required>
+            <Field label="زیر گروه" required>
               <Select
                 value={form.role ?? ""}
                 onChange={(value) => update("role", value)}
@@ -255,15 +255,15 @@ export function ContactModal({
                 placeholder={
                   form.categoryId
                     ? roleOptions.length > 0
-                      ? "انتخاب دسته بندی"
-                      : "ابتدا نقش رو انتخاب کنید"
+                      ? "انتخاب زیر گروه"
+                      : "ابتدا گروه اصلی رو انتخاب کنید"
                     : "ابتدا دسته را انتخاب کنید"
                 }
                 disabled={!form.categoryId || roleOptions.length === 0}
               />
             </Field>
 
-            <Field label="نقش" required>
+            <Field label="گروه اصلی" required>
               <Select
                 value={form.categoryId ?? ""}
                 onChange={(value) => {
@@ -271,7 +271,7 @@ export function ContactModal({
                   update("role", "");
                 }}
                 options={categoryOptions}
-                placeholder="انتخاب نقش"
+                placeholder="انتخاب گروه اصلی"
               />
             </Field>
           </section>

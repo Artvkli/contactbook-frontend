@@ -118,7 +118,7 @@ export const initialContacts = [
     address: "تهران، پاسداران، گلستان پنجم",
     source: "جستجو در اینترنت",
     behavior: "warm",
-    description: "طراحی معماری و ارائه نقشه‌های اجرایی.",
+    description: "طراحی معماری و ارائه گروه اصلیه‌های اجرایی.",
   },
   {
     id: 8,

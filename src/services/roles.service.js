@@ -16,7 +16,7 @@ export async function createRole(name) {
   const normalizedName = name.trim();
 
   if (!normalizedName) {
-    throw new Error("نام نقش الزامی است.");
+    throw new Error("نام گروه اصلی الزامی است.");
   }
 
   const exists = roles.some(
@@ -24,7 +24,7 @@ export async function createRole(name) {
   );
 
   if (exists) {
-    throw new Error("این نقش قبلاً ثبت شده است.");
+    throw new Error("این گروه اصلی قبلاً ثبت شده است.");
   }
 
   roles = [...roles, normalizedName];

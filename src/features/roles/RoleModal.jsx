@@ -59,7 +59,7 @@ export function RoleModal({
     );
 
     if (duplicate) {
-      setError("این نقش قبلاً ثبت شده است.");
+      setError("این گروه اصلی قبلاً ثبت شده است.");
       return;
     }
 
@@ -75,7 +75,7 @@ export function RoleModal({
 
       resetForm();
     } catch (submitError) {
-      setError(submitError?.message || "ذخیره نقش با خطا مواجه شد.");
+      setError(submitError?.message || "ذخیره گروه اصلی با خطا مواجه شد.");
     } finally {
       setSaving(false);
     }
@@ -89,7 +89,7 @@ export function RoleModal({
   };
 
   const handleDelete = async (role) => {
-    const ok = window.confirm(`آیا از حذف نقش «${role.name}» مطمئن هستید؟`);
+    const ok = window.confirm(`آیا از حذف گروه اصلی «${role.name}» مطمئن هستید؟`);
 
     if (!ok) return;
 
@@ -103,7 +103,7 @@ export function RoleModal({
         resetForm();
       }
     } catch (deleteError) {
-      setError(deleteError?.message || "حذف نقش با خطا مواجه شد.");
+      setError(deleteError?.message || "حذف گروه اصلی با خطا مواجه شد.");
     } finally {
       setDeletingId(null);
     }
@@ -153,7 +153,7 @@ export function RoleModal({
               }}
               className="field-input"
             >
-              <option value="">ابتدا نقش رو انتخاب کنید</option>
+              <option value="">ابتدا گروه اصلی رو انتخاب کنید</option>
 
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>

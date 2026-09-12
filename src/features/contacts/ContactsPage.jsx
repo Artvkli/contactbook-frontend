@@ -287,8 +287,8 @@ export default function ContactsPage({
     const excelData = contacts.map((contact) => ({
       شناسه: contact.id,
       "نام و نام خانوادگی": contact.fullname || "",
-      دسته‌بندی: contact.category_name || "",
-      نقش: contact.role_name || "",
+      "دسته‌بندی": contact.category_name || "",
+      "گروه اصلی": contact.role_name || "",
       "شماره تماس": (contact.phones ?? [])
         .map((phone) => phone.phone)
         .join("، "),
@@ -338,7 +338,7 @@ export default function ContactsPage({
       const parsed = rows.map((row, index) => {
         const fullname = String(row["نام و نام خانوادگی"] || "").trim();
         const categoryName = row["دسته‌بندی"];
-        const roleName = row["نقش"];
+        const roleName = row["گروه اصلی"];
         const howMetName = row["نحوه آشنایی"];
         const behaviorLabel = row["رفتار"];
 
@@ -460,24 +460,6 @@ export default function ContactsPage({
               className="hidden"
               onChange={handleFileChange}
             />
-
-            <button
-              type="button"
-              onClick={handleImportClick}
-              className="flex h-9 items-center gap-2 rounded-lg border border-[#e4dfd7] bg-white px-3 text-xs font-medium text-[#716a62] transition hover:bg-[#faf8f4] hover:text-[#8b682f]"
-            >
-              <Upload className="size-4" />
-              ایمپورت اکسل
-            </button>
-
-            <button
-              type="button"
-              onClick={handleExportExcel}
-              className="flex h-9 items-center gap-2 rounded-lg border border-[#e4dfd7] bg-white px-3 text-xs font-medium text-[#716a62] transition hover:bg-[#faf8f4] hover:text-[#8b682f]"
-            >
-              <FileSpreadsheet className="size-4" />
-              خروجی اکسل
-            </button>
           </div>
         </div>
 
@@ -490,10 +472,10 @@ export default function ContactsPage({
             value={sort}
             onChange={setSort}
             options={[
-              {
-                value: "newest",
-                label: "جدیدترین",
-              },
+              // {
+              //   value: "newest",
+              //   label: "جدیدترین",
+              // },
               {
                 value: "oldest",
                 label: "قدیمی‌ترین",
@@ -516,7 +498,7 @@ export default function ContactsPage({
                 value: String(item.id),
                 label: item.name,
               }))}
-            placeholder="همه نقش ها"
+            placeholder="همه گروه اصلی ها"
             className="w-auto"
           />
 
@@ -563,6 +545,24 @@ export default function ContactsPage({
           >
             <SlidersHorizontal className="size-4" />
             بازنشانی
+          </button>
+
+          <button
+            type="button"
+            onClick={handleImportClick}
+            className="flex h-9 items-center gap-2 rounded-lg border border-[#e4dfd7] bg-white px-3 text-xs font-medium text-[#716a62] transition hover:bg-[#faf8f4] hover:text-[#8b682f]"
+          >
+            <Upload className="size-4" />
+            ایمپورت اکسل
+          </button>
+
+          <button
+            type="button"
+            onClick={handleExportExcel}
+            className="flex h-9 items-center gap-2 rounded-lg border border-[#e4dfd7] bg-white px-3 text-xs font-medium text-[#716a62] transition hover:bg-[#faf8f4] hover:text-[#8b682f]"
+          >
+            <FileSpreadsheet className="size-4" />
+            خروجی اکسل
           </button>
         </div>
 
@@ -876,7 +876,7 @@ export default function ContactsPage({
                   <tr className="text-[10px] text-[#8f887f]">
                     <th className="py-2">نام</th>
                     <th className="py-2">دسته‌بندی</th>
-                    <th className="py-2">نقش</th>
+                    <th className="py-2">گروه اصلی</th>
                     <th className="py-2">تلفن</th>
                     <th className="py-2">وضعیت</th>
                     <th className="py-2"></th>

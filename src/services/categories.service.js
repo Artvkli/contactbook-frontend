@@ -121,11 +121,11 @@ export async function createRole(name, parentId) {
   const normalizedName = name.trim();
 
   if (!normalizedName) {
-    throw new Error("نام نقش الزامی است.");
+    throw new Error("نام گروه اصلی الزامی است.");
   }
 
   if (!parentId) {
-    throw new Error("دسته والد نقش را انتخاب کنید.");
+    throw new Error("دسته والد گروه اصلی را انتخاب کنید.");
   }
 
   const response = await fetch(`${API_URL}/categories/`, {
@@ -148,7 +148,7 @@ export async function createRole(name, parentId) {
   }
 
   if (!response.ok) {
-    let message = "ثبت نقش با خطا مواجه شد.";
+    let message = "ثبت گروه اصلی با خطا مواجه شد.";
 
     if (data?.detail) {
       message = data.detail;
@@ -168,11 +168,11 @@ export async function updateRole(id, name, parentId) {
   const normalizedName = name.trim();
 
   if (!normalizedName) {
-    throw new Error("نام نقش الزامی است.");
+    throw new Error("نام گروه اصلی الزامی است.");
   }
 
   if (!parentId) {
-    throw new Error("دسته والد نقش را انتخاب کنید.");
+    throw new Error("دسته والد گروه اصلی را انتخاب کنید.");
   }
 
   const response = await fetch(`${API_URL}/categories/${id}/`, {
@@ -195,7 +195,7 @@ export async function updateRole(id, name, parentId) {
   }
 
   if (!response.ok) {
-    let message = "ویرایش نقش با خطا مواجه شد.";
+    let message = "ویرایش گروه اصلی با خطا مواجه شد.";
 
     if (data?.detail) {
       message = data.detail;
@@ -220,7 +220,7 @@ export async function deleteRole(id) {
     const data = await response.json().catch(() => null);
 
     throw new Error(
-      data?.detail || data?.message || "حذف نقش با خطا مواجه شد.",
+      data?.detail || data?.message || "حذف گروه اصلی با خطا مواجه شد.",
     );
   }
 }

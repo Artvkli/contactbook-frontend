@@ -35,7 +35,7 @@ export function CategoryModal({
     const normalizedName = name.trim();
 
     if (!normalizedName) {
-      setError("نام نقش را وارد کنید.");
+      setError("نام گروه اصلی را وارد کنید.");
       return;
     }
 
@@ -46,7 +46,7 @@ export function CategoryModal({
     );
 
     if (duplicate) {
-      setError("این نقش قبلاً ثبت شده است.");
+      setError("این گروه اصلی قبلاً ثبت شده است.");
       return;
     }
 
@@ -91,7 +91,7 @@ export function CategoryModal({
 
     if (hasChildren) {
       alert(
-        "این دسته دارای نقش است و تا زمانی که نقش‌های مربوط به آن حذف نشوند، امکان حذف دسته وجود ندارد.",
+        "این دسته دارای گروه اصلی است و تا زمانی که گروه اصلی‌های مربوط به آن حذف نشوند، امکان حذف دسته وجود ندارد.",
       );
       return;
     }
@@ -126,11 +126,11 @@ export function CategoryModal({
 
             <div>
               <h2 className="text-[14px] font-extrabold text-[#3f3932]">
-                افزودن نقش
+                افزودن گروه اصلی
               </h2>
 
               <p className="mt-0.5 text-[9px] text-[#9b948a]">
-                مدیریت نقش های مخاطبین
+                مدیریت گروه اصلی های مخاطبین
               </p>
             </div>
           </div>
@@ -156,13 +156,13 @@ export function CategoryModal({
           >
             <div className="mb-3">
               <span className="text-[11px] font-semibold text-[#4d463e]">
-                {editingId ? "ویرایش نقش" : "افزودن نقش"}
+                {editingId ? "ویرایش گروه اصلی" : "افزودن گروه اصلی"}
               </span>
             </div>
 
             <label className="block">
               <span className="mb-2 block text-[11px] font-semibold text-[#4d463e]">
-                نام نقش <b className="text-[#d65d55]">*</b>
+                نام گروه اصلی <b className="text-[#d65d55]">*</b>
               </span>
 
               <input
@@ -215,7 +215,7 @@ export function CategoryModal({
                   ? "در حال ذخیره..."
                   : editingId
                     ? "ذخیره تغییرات"
-                    : "افزودن نقش"}
+                    : "افزودن گروه اصلی"}
               </button>
             </div>
           </form>
@@ -225,7 +225,7 @@ export function CategoryModal({
           <div className="mt-5">
             <div className="mb-3 flex items-center justify-between">
               <div className="text-[10px] font-bold text-[#756d63]">
-                نقش های موجود
+                گروه اصلی های موجود
               </div>
 
               <span className="rounded-full bg-[#eee8dd] px-2 py-0.5 text-[9px] font-semibold text-[#8b7757]">
@@ -261,7 +261,7 @@ export function CategoryModal({
 
                           {hasChildren && (
                             <div className="mt-0.5 text-[8px] text-[#aaa198]">
-                              دارای دسته بندی
+                              دارای زیر گروه
                             </div>
                           )}
                         </div>
@@ -281,7 +281,7 @@ export function CategoryModal({
                             onClick={() => handleDelete(category)}
                             className="flex size-8 items-center justify-center rounded-lg text-[#a19a91] transition hover:bg-[#fbefed] hover:text-[#b45a52]"
                             title={
-                              hasChildren ? "این دسته دارای نقش است" : "حذف"
+                              hasChildren ? "این دسته دارای گروه اصلی است" : "حذف"
                             }
                           >
                             <Trash2 className="size-3.5" />
